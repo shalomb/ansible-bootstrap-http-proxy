@@ -20,5 +20,3 @@ pip install pip
 
 pip install ansible
 
-ansible-playbook -i tests/test.yml -vv
-
