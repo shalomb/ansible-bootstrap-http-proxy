@@ -33,5 +33,5 @@ script:
   - container_id=$(mktemp -t XXXXXXXXXXXX)
   - container_id=$( basename $container_id )
   - env | sort
-  - 'docker run --detach --volume="$PWD":"$PWD":ro -w "$PWD" --name $container_id $distribution:$version pwd'
-  - 'docker run --detach --volume="$PWD":"$PWD":ro -w "$PWD" --name $container_id $distribution:$version type curl'
+  - 'docker run --detach --volume="$PWD":"$PWD":ro -w "$PWD" --name $container_id $distribution:$version sleep 2d'
+  - 'docker exec -it $container_id type curl'
