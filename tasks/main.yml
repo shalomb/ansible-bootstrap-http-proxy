@@ -61,10 +61,10 @@
 
 - name: Set proxy environment variables in /etc/environment
   raw:
-    grep -qF '{{ item.key }}="{{ item.value }}"' /tmp/environment ||
-      ( sed -i '/^{{ item.key }}=".*"$/d' /tmp/environment;
+    grep -qF '{{ item.key }}="{{ item.value }}"' /etc/environment ||
+      ( sed -i '/^{{ item.key }}=".*"$/d' /etc/environment;
         echo '{{ item.key }}="{{ item.value }}"' |
-        tee -a /tmp/environment
+        tee -a /etc/environment
       )
   with_items:
 

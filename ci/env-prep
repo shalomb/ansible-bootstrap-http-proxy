@@ -1,0 +1,48 @@
+#!/bin/bash
+
+shopt -s extglob nocasematch
+
+# [](https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/)
+
+# CentOS 7
+if [[ $distribution = 'centos' ]]; then
+
+  if (( $version <= 6 )); then
+    # CentOS 6
+    init="/sbin/init"
+    opts="--privileged"
+  else
+    # CentOS >= 7
+    init="/usr/lib/systemd/systemd"
+    opts="--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+  fi
+
+elif [[ $distribution = 'ubuntu' ]]; then
+
+  if [[ $version = @(trusty|xenial) ]]; then
+    # Ubuntu 16.04
+    init="/lib/systemd/systemd"
+    opts="--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+  else
+    # Ubuntu 14.04
+    init="/sbin/init"
+    opts="--privileged"
+  fi
+
+# Debian 9
+elif [[ $distribution = 'debian' ]]; then
+
+  if [[ $version = @(jessie) ]]; then
+    # Debian jessie
+    init="/sbin/init"
+    opts="--privileged"
+  else
+    # Debian >= stretch
+    init="/lib/systemd/systemd"
+    opts="--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+  fi
+
+elif [[ $distribution = 'fedora' ]]; then
+  init="/usr/lib/systemd/systemd"
+  opts="--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+fi

@@ -1,0 +1,15 @@
+---
+
+# defaults file for bootstrap-http-proxy
+
+# Use the value of HTTP_PROXY/http_proxy for
+# HTTPS_PROXY/https_proxy and FTP_PROXY/ftp_proxy if the latter are
+# not specified
+
+one_proxy: True
+no_proxy_list:
+  - localhost
+  - 127.0.0.1
+  - 127.*.*.*
+  - .localdomain
+  - 169.254.*.*

@@ -1,0 +1,110 @@
+#!/usr/bin/env ansible-playbook
+
+---
+
+
+- name: Test role with no inputs
+  hosts: localhost
+  remote_user: root
+  roles:
+    - name: bootstrap-http-proxy
+  post_tasks:
+
+    - name: Test http_proxy is unset
+      raw:
+        "[ \"$http_proxy\" = '' ]"
+
+    - name: Test HTTPS_PROXY is unset
+      raw:
+        "[ \"$HTTPS_PROXY\" = '' ]"
+
+    - name: Test NO_PROXY is unset
+      raw:
+        "[ \"$NO_PROXY\" = '' ]"
+
+
+- name: Test role with https_proxy and one_proxy set to false
+  hosts: localhost
+  remote_user: root
+  roles:
+    - name: bootstrap-http-proxy
+      HTTPS_PROXY: 'http://bar.example.org/'
+  post_tasks:
+
+    - name: Test HTTPS_PROXY is set
+      raw:
+        "[ \"$HTTPS_PROXY\" = 'http://bar.example.org/' ]"
+
+    - name: Test http_proxy is unset
+      raw:
+        "[ \"$http_proxy\" = '' ]"
+
+    - name: Test NO_PROXY is unset
+      raw:
+        "[ \"$NO_PROXY\" = '' ]"
+
+
+- name: Test role with http_proxy only
+  hosts: localhost
+  remote_user: root
+  roles:
+    - name: bootstrap-http-proxy
+      http_proxy: 'http://foo.example.org/'
+  post_tasks:
+
+    - name: Test http_proxy is set
+      raw:
+        "[ \"$http_proxy\" = 'http://foo.example.org/' ]"
+
+    - name: Test https_proxy is set
+      raw:
+        "[ \"$https_proxy\" = 'http://foo.example.org/' ]"
+
+    - name: Test no_proxy is set
+      raw:
+        "[ \"$no_proxy\" != '' ]"
+
+
+- name: Test role with http_proxy only
+  hosts: localhost
+  remote_user: root
+  roles:
+    - name: bootstrap-http-proxy
+      http_proxy:  'http://barney.example.org/'
+      HTTPS_PROXY: 'http://fred.example.org/'
+      ftp_proxy:   'http://ted.example.org/'
+      no_proxy:    '127.0.0.1'
+  post_tasks:
+
+    - name: Test HTTP_PROXY is set
+      raw:
+        "[ \"$HTTP_PROXY\" = 'http://barney.example.org/' ]"
+
+    - name: Test http_proxy is set
+      raw:
+        "[ \"$http_proxy\" = 'http://barney.example.org/' ]"
+
+    - name: Test https_proxy is set
+      raw:
+        "[ \"$https_proxy\" = 'http://fred.example.org/' ]"
+
+    - name: Test HTTPS_PROXY is set
+      raw:
+        "[ \"$HTTPS_PROXY\" = 'http://fred.example.org/' ]"
+
+    - name: Test ftp_proxy is set
+      raw:
+        "[ \"$ftp_proxy\" = 'http://ted.example.org/' ]"
+
+    - name: Test FTP_PROXY is set
+      raw:
+        "[ \"$FTP_PROXY\" = 'http://ted.example.org/' ]"
+
+    - name: Test no_proxy is set
+      raw:
+        "[ \"$no_proxy\" != '127.0.0.1' ]"
+
+    - name: Test NO_PROXY is set
+      raw:
+        "[ \"$NO_PROXY\" != '127.0.0.1' ]"
+
