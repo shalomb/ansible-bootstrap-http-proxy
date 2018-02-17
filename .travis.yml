@@ -1,0 +1,32 @@
+---
+
+sudo: required
+
+env:
+  - distribution: centos
+    version:      7
+  - distribution: fedora
+    version:      26
+  - distribution: fedora
+    version:      25
+  - distribution: fedora
+    version:      24
+  - distribution: ubuntu
+    version:      xenial
+  - distribution: ubuntu
+    version:      trusty
+  - distribution: debian
+    version:      stretch
+  - distribution: debian
+    version:      jessie
+
+services:
+  - docker
+
+before_install:
+  - 'sudo docker pull ${distribution}:${version}'
+  - env
+
+script:
+  - container_id=$(mktemp)
+  - env
