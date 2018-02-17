@@ -1,6 +1,6 @@
 ---
 
-# defaults file for bootstrap-http-proxy
+# defaults file for ansible-bootstrap-http-proxy
 
 # Use the value of HTTP_PROXY/http_proxy for
 # HTTPS_PROXY/https_proxy and FTP_PROXY/ftp_proxy if the latter are

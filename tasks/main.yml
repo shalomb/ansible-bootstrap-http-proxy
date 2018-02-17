@@ -1,6 +1,6 @@
 ---
 
-# tasks file for bootstrap-http-proxy
+# tasks file for ansible-bootstrap-http-proxy
 
 - name: Validate config
   set_fact:

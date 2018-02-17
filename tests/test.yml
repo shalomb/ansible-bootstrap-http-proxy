@@ -7,7 +7,7 @@
   hosts: localhost
   remote_user: root
   roles:
-    - name: bootstrap-http-proxy
+    - name: ansible-bootstrap-http-proxy
   post_tasks:
 
     - name: Test http_proxy is unset
@@ -27,7 +27,7 @@
   hosts: localhost
   remote_user: root
   roles:
-    - name: bootstrap-http-proxy
+    - name: ansible-bootstrap-http-proxy
       HTTPS_PROXY: 'http://bar.example.org/'
   post_tasks:
 
@@ -48,7 +48,7 @@
   hosts: localhost
   remote_user: root
   roles:
-    - name: bootstrap-http-proxy
+    - name: ansible-bootstrap-http-proxy
       http_proxy: 'http://foo.example.org/'
   post_tasks:
 
@@ -69,7 +69,7 @@
   hosts: localhost
   remote_user: root
   roles:
-    - name: bootstrap-http-proxy
+    - name: ansible-bootstrap-http-proxy
       http_proxy:  'http://barney.example.org/'
       HTTPS_PROXY: 'http://fred.example.org/'
       ftp_proxy:   'http://ted.example.org/'
