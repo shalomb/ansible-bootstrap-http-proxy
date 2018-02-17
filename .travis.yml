@@ -27,8 +27,8 @@ services:
 
 before_install:
   - 'sudo docker pull ${distribution}:${version}'
-  - env
+  - env | sort
 
 script:
   - container_id=$(mktemp)
-  - env
+  - env | sort
