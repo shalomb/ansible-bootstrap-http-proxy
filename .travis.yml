@@ -32,10 +32,6 @@ script:
   - container_id=$(mktemp -t XXXXXXXXXXXX)
   - container_id=$( basename $container_id )
   - 'docker run --detach --volume="$PWD":"$PWD":ro -w "$PWD" --name $container_id $distribution:$version sleep 2d'
-  - pwd
-  - ls
-  - 'docker exec -it $container_id pwd'
-  - 'docker exec -it $container_id ls'
   - 'docker exec -it $container_id ./tests/role.sh'
   - 'docker exec -it $container_id ansible-playbook tests/test.yml -l localhost -vv'
 
