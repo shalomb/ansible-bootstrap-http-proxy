@@ -32,3 +32,5 @@ before_install:
 script:
   - container_id=$(mktemp)
   - env | sort
+  - 'docker run --detach --volume="$PWD":"$PWD":ro -w "$PWD" --name $container_id $distribution:$version $distribution:$version pwd'
+  - 'docker run --detach --volume="$PWD":"$PWD":ro -w "$PWD" --name $container_id $distribution:$version $distribution:$version type curl'
