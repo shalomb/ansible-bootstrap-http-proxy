@@ -27,11 +27,11 @@ services:
 
 before_install:
   - 'sudo docker pull ${distribution}:${version}'
-  - env | sort
 
 script:
   - container_id=$(mktemp -t XXXXXXXXXXXX)
   - container_id=$( basename $container_id )
-  - env | sort
   - 'docker run --detach --volume="$PWD":"$PWD":ro -w "$PWD" --name $container_id $distribution:$version sleep 2d'
   - 'docker exec -it $container_id ./tests/role.sh'
+  - 'docker exec -it $container_id ansible-playbook tests/test.yml -l localhost -vv'
+
