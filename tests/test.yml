@@ -3,70 +3,70 @@
 ---
 
 
-- name: Test role with no inputs
-  hosts: all
+- name: TC 1 - Test role with no inputs
+  hosts: localhost
   remote_user: root
   roles:
     - name: ansible-bootstrap-http-proxy
   post_tasks:
 
-    - name: Test http_proxy is unset
+    - name: TC 1 - Test http_proxy is unset
       raw:
-        "[ \"$http_proxy\" = '' ]"
+        ". /etc/environment && [ \"$http_proxy\" = '' ] || (echo \"'\\$http_proxy' - Test ('$http_proxy'='') failed.\"; exit 42;)"
 
-    - name: Test HTTPS_PROXY is unset
+    - name: TC 1 - Test HTTPS_PROXY is unset
       raw:
-        "[ \"$HTTPS_PROXY\" = '' ]"
+        ". /etc/environment && [ \"$HTTPS_PROXY\" = '' ] || (echo \"'\\$HTTPS_PROXY' - Test ('$HTTPS_PROXY'='') failed.\"; exit 42;)"
 
-    - name: Test NO_PROXY is unset
+    - name: TC 1 - Test NO_PROXY is unset
       raw:
-        "[ \"$NO_PROXY\" = '' ]"
+        ". /etc/environment && [ \"$NO_PROXY\" = '' ] || (echo \"'\\$NO_PROXY' - Test ('$NO_PROXY'='') failed.\"; exit 42;)"
 
 
-- name: Test role with https_proxy and one_proxy set to false
-  hosts: all
+- name: TC 2 - Test role with https_proxy and one_proxy set to false
+  hosts: localhost
   remote_user: root
   roles:
     - name: ansible-bootstrap-http-proxy
       HTTPS_PROXY: 'http://bar.example.org/'
   post_tasks:
 
-    - name: Test HTTPS_PROXY is set
+    - name: TC 2 - Test HTTPS_PROXY is set
       raw:
-        "[ \"$HTTPS_PROXY\" = 'http://bar.example.org/' ]"
+        ". /etc/environment && [ \"$HTTPS_PROXY\" = 'http://bar.example.org/' ] || (echo \"'\\$HTTPS_PROXY' - Test ('$HTTPS_PROXY'='http://bar.example.org/') failed.\"; exit 42;)"
 
-    - name: Test http_proxy is unset
+    - name: TC 2 - Test http_proxy is unset
       raw:
-        "[ \"$http_proxy\" = '' ]"
+        ". /etc/environment && [ \"$http_proxy\" = '' ] || (echo \"'\\$http_proxy' - Test ('$http_proxy'='') failed.\"; exit 42;)"
 
-    - name: Test NO_PROXY is unset
+    - name: TC 2 - Test NO_PROXY is unset
       raw:
-        "[ \"$NO_PROXY\" = '' ]"
+        ". /etc/environment && [ \"$NO_PROXY\" = '' ] || (echo \"'\\$NO_PROXY' - Test ('$NO_PROXY'='') failed.\"; exit 42;)"
 
 
-- name: Test role with http_proxy only
-  hosts: all
+- name: TC 3 - Test role with http_proxy only
+  hosts: localhost
   remote_user: root
   roles:
     - name: ansible-bootstrap-http-proxy
       http_proxy: 'http://foo.example.org/'
   post_tasks:
 
-    - name: Test http_proxy is set
+    - name: TC 3 - Test http_proxy is set
       raw:
-        "[ \"$http_proxy\" = 'http://foo.example.org/' ]"
+        ". /etc/environment && [ \"$http_proxy\" = 'http://foo.example.org/' ] || (echo \"'\\$http_proxy' - Test ('$http_proxy'='http://foo.example.org/') failed.\"; exit 42;)"
 
-    - name: Test https_proxy is set
+    - name: TC 3 - Test https_proxy is set
       raw:
-        "[ \"$https_proxy\" = 'http://foo.example.org/' ]"
+        ". /etc/environment && [ \"$https_proxy\" = 'http://foo.example.org/' ] || (echo \"'\\$https_proxy' - Test ('$https_proxy'='http://foo.example.org/') failed.\"; exit 42;)"
 
-    - name: Test no_proxy is set
+    - name: TC 3 - Test no_proxy is set
       raw:
-        "[ \"$no_proxy\" != '' ]"
+        ". /etc/environment && [ \"$no_proxy\" != '' ] || (echo \"'\\$no_proxy' - Test ('$no_proxy'='') failed.\"; exit 42;)"
 
 
-- name: Test role with http_proxy only
-  hosts: all
+- name: TC 4 - Test role with http_proxy only
+  hosts: localhost
   remote_user: root
   roles:
     - name: ansible-bootstrap-http-proxy
@@ -76,35 +76,35 @@
       no_proxy:    '127.0.0.1'
   post_tasks:
 
-    - name: Test HTTP_PROXY is set
+    - name: TC 4 - Test HTTP_PROXY is set
       raw:
-        "[ \"$HTTP_PROXY\" = 'http://barney.example.org/' ]"
+        ". /etc/environment && [ \"$HTTP_PROXY\" = 'http://barney.example.org/' ] || (echo \"'\\$HTTP_PROXY' - Test ('$HTTP_PROXY'='http://barney.example.org/') failed.\"; exit 42;)"
 
-    - name: Test http_proxy is set
+    - name: TC 4 - Test http_proxy is set
       raw:
-        "[ \"$http_proxy\" = 'http://barney.example.org/' ]"
+        ". /etc/environment && [ \"$http_proxy\" = 'http://barney.example.org/' ] || (echo \"'\\$http_proxy' - Test ('$http_proxy'='http://barney.example.org/') failed.\"; exit 42;)"
 
-    - name: Test https_proxy is set
+    - name: TC 4 - Test https_proxy is set
       raw:
-        "[ \"$https_proxy\" = 'http://fred.example.org/' ]"
+        ". /etc/environment && [ \"$https_proxy\" = 'http://fred.example.org/' ] || (echo \"'\\$https_proxy' - Test ('$https_proxy'='http://fred.example.org/') failed.\"; exit 42;)"
 
-    - name: Test HTTPS_PROXY is set
+    - name: TC 4 - Test HTTPS_PROXY is set
       raw:
-        "[ \"$HTTPS_PROXY\" = 'http://fred.example.org/' ]"
+        ". /etc/environment && [ \"$HTTPS_PROXY\" = 'http://fred.example.org/' ] || (echo \"'\\$HTTPS_PROXY' - Test ('$HTTPS_PROXY'='http://fred.example.org/') failed.\"; exit 42;)"
 
-    - name: Test ftp_proxy is set
+    - name: TC 4 - Test ftp_proxy is set
       raw:
-        "[ \"$ftp_proxy\" = 'http://ted.example.org/' ]"
+        ". /etc/environment && [ \"$ftp_proxy\" = 'http://ted.example.org/' ] || (echo \"'\\$ftp_proxy' - Test ('$ftp_proxy'='http://ted.example.org/') failed.\"; exit 42;)"
 
-    - name: Test FTP_PROXY is set
+    - name: TC 4 - Test FTP_PROXY is set
       raw:
-        "[ \"$FTP_PROXY\" = 'http://ted.example.org/' ]"
+        ". /etc/environment && [ \"$FTP_PROXY\" = 'http://ted.example.org/' ] || (echo \"'\\$FTP_PROXY' - Test ('$FTP_PROXY'='http://ted.example.org/') failed.\"; exit 42;)"
 
-    - name: Test no_proxy is set
+    - name: TC 4 - Test no_proxy is set
       raw:
-        "[ \"$no_proxy\" != '127.0.0.1' ]"
+        ". /etc/environment && [ \"$no_proxy\" = '127.0.0.1' ] || (echo \"'\\$no_proxy' - Test ('$no_proxy'='127.0.0.1') failed.\"; exit 42;)"
 
-    - name: Test NO_PROXY is set
+    - name: TC 4 - Test NO_PROXY is set
       raw:
-        "[ \"$NO_PROXY\" != '127.0.0.1' ]"
+        ". /etc/environment && [ \"$NO_PROXY\" = '127.0.0.1' ] || (echo \"'\\$NO_PROXY' - Test ('$NO_PROXY'='127.0.0.1') failed.\"; exit 42;)"
 

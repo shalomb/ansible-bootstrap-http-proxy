@@ -2,11 +2,8 @@
 
 # defaults file for ansible-bootstrap-http-proxy
 
-# Use the value of HTTP_PROXY/http_proxy for
-# HTTPS_PROXY/https_proxy and FTP_PROXY/ftp_proxy if the latter are
-# not specified
-
-one_proxy: True
+# List of address/wildcards to be CSV joined
+# for use in the no_proxy/NO_PROXY variable
 no_proxy_list:
   - localhost
   - 127.0.0.1
