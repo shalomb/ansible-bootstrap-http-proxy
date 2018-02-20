@@ -4,7 +4,7 @@
 
 
 - name: Test role with no inputs
-  hosts: localhost
+  hosts: all
   remote_user: root
   roles:
     - name: ansible-bootstrap-http-proxy
@@ -24,7 +24,7 @@
 
 
 - name: Test role with https_proxy and one_proxy set to false
-  hosts: localhost
+  hosts: all
   remote_user: root
   roles:
     - name: ansible-bootstrap-http-proxy
@@ -45,7 +45,7 @@
 
 
 - name: Test role with http_proxy only
-  hosts: localhost
+  hosts: all
   remote_user: root
   roles:
     - name: ansible-bootstrap-http-proxy
@@ -66,7 +66,7 @@
 
 
 - name: Test role with http_proxy only
-  hosts: localhost
+  hosts: all
   remote_user: root
   roles:
     - name: ansible-bootstrap-http-proxy
