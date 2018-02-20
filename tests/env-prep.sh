@@ -5,6 +5,7 @@ set -xv
 
 # setup
 if type -P apt; then
+  apt-get -qq -y update
   apt-get install -y curl python-minimal
 elif type -P zypper; then
   zypper -n install curl python
