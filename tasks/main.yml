@@ -1,52 +1,71 @@
 ---
 
-# tasks file for bootstrap-http-proxy
+# tasks file for ansible-bootstrap-http-proxy
 
-- name: Validate config
+- name: Normalize proxy environment variables
   set_fact:
-    "{{ item.key }}={{ item.value }}"
-  when:
-    - |
-      ( one_proxy is defined and one_proxy == True ) and
-      ( ( http_proxy is defined or HTTP_PROXY is defined ) or
-        ( no_proxy is defined or NO_PROXY is defined )
-      )
+    "fact_{{ item.key }}={{ item.value }}"
   with_items:
 
-    - key:   ftp_proxy
-      value: '{{ ftp_proxy | default(FTP_PROXY, true) |
-                 default( (one_proxy == True) | ternary(http_proxy, "") )
-              }}'
-    - key:   FTP_PROXY
-      value: '{{ FTP_PROXY | default(ftp_proxy, true) |
-                 default( (one_proxy == True) | ternary(http_proxy, "") )
-              }}'
-
     - key:   http_proxy
-      value: '{{ http_proxy | default(HTTP_PROXY, true) |
-                 default( (one_proxy == True) | ternary(http_proxy, "") )
-              }}'
+      value: '{{ http_proxy |
+                 default(HTTP_PROXY, true) |
+                 default("", true)
+               }}'
     - key:   HTTP_PROXY
-      value: '{{ HTTP_PROXY | default(http_proxy, true) |
-                 default( (one_proxy == True) | ternary(http_proxy, "") )
+      value: '{{
+          ( http_proxy is defined and http_proxy != "" ) |
+            ternary(
+              http_proxy,
+              ( HTTP_PROXY | default("", true) )
+            )
+        }}'
+
+    - key:   no_proxy
+      value: '{{
+                ( http_proxy is defined and http_proxy != "" ) |
+                ternary (
+                   no_proxy |
+                   default(NO_PROXY, true) |
+                   default(no_proxy_list | join(","), true),
+                   ""
+                )
+              }}'
+    - key:   NO_PROXY
+      value: '{{
+                ( http_proxy is defined and http_proxy != "" ) |
+                ternary (
+                   NO_PROXY |
+                   default(no_proxy, true) |
+                   default(no_proxy_list | join(","), true),
+                   ""
+                )
               }}'
 
     - key:   https_proxy
-      value: '{{ https_proxy | default(HTTPS_PROXY, true) |
-                 default( (one_proxy == True) | ternary(http_proxy, "") )
+      value: '{{ https_proxy |
+                 default(HTTPS_PROXY, true) |
+                 default(http_proxy, true) |
+                 default("", true)
               }}'
     - key:   HTTPS_PROXY
-      value: '{{ HTTPS_PROXY | default(https_proxy, true) |
-                 default( (one_proxy == True) | ternary(http_proxy, "") )
+      value: '{{ HTTPS_PROXY |
+                 default(https_proxy, true) |
+                 default(http_proxy, true) |
+                 default("", true)
               }}'
 
-    - key:   no_proxy
-      value: '{{ no_proxy | default(NO_PROXY, true) |
-                 default( no_proxy_list | join(","), true )
+    - key:   ftp_proxy
+      value: '{{ ftp_proxy |
+                 default(FTP_PROXY, true) |
+                 default(http_proxy, true) |
+                 default("", true)
               }}'
-    - key:   NO_PROXY
-      value: '{{ NO_PROXY | default(no_proxy, true) |
-                 default( no_proxy_list | join(","), true )
+    - key:   FTP_PROXY
+      value: '{{ FTP_PROXY |
+                 default(ftp_proxy, true) |
+                 default(http_proxy, true) |
+                 default("", true)
               }}'
 
   tags:
@@ -61,36 +80,35 @@
 
 - name: Set proxy environment variables in /etc/environment
   raw:
-    grep -qF '{{ item.key }}="{{ item.value }}"' /etc/environment ||
-      ( sed -i '/^{{ item.key }}=".*"$/d' /etc/environment;
-        echo '{{ item.key }}="{{ item.value }}"' |
-        tee -a /etc/environment
-      )
+    grep   '^{{ item.key }}' /etc/environment &&
+      sed -i '/^{{ item.key }}=".*"$/d' /etc/environment;
+    if [ '{{ item.value }}' != '' ]; then
+      echo '{{ item.key }}="{{ item.value }}"' | tee -a /etc/environment;
+    fi
+  when:
+    - item.value is defined
   with_items:
 
     - key:   ftp_proxy
-      value: '{{ ftp_proxy   | default("", true) }}'
+      value: '{{ fact_ftp_proxy   | default("", true) }}'
     - key:   FTP_PROXY
-      value: '{{ FTP_PROXY   | default("", true) }}'
+      value: '{{ fact_FTP_PROXY   | default("", true) }}'
 
     - key:   http_proxy
-      value: '{{ http_proxy  | default("", true) }}'
+      value: '{{ fact_http_proxy  | default("", true) }}'
     - key:   HTTP_PROXY
-      value: '{{ HTTP_PROXY  | default("", true) }}'
+      value: '{{ fact_HTTP_PROXY  | default("", true) }}'
 
     - key:   https_proxy
-      value: '{{ https_proxy | default("", true) }}'
+      value: '{{ fact_https_proxy | default("", true) }}'
     - key:   HTTPS_PROXY
-      value: '{{ HTTPS_PROXY | default("", true) }}'
+      value: '{{ fact_HTTPS_PROXY | default("", true) }}'
 
     - key:   no_proxy
-      value: '{{ no_proxy    | default("", true) }}'
+      value: '{{ fact_no_proxy    | default("", true) }}'
     - key:   NO_PROXY
-      value: '{{ NO_PROXY    | default("", true) }}'
+      value: '{{ fact_NO_PROXY    | default("", true) }}'
 
-  when:
-    - item.value is defined
-    - item.value != ""
   register:
     tee_value
   changed_when:
