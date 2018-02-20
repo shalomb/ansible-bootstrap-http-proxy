@@ -1,7 +1,8 @@
 ansible-bootstrap-http-proxy
 ============================
 
-[![Build Status](https://travis-ci.org/shalomb/ansible-bootstrap-http-proxy.svg?branch=master)](https://travis-ci.org/shalomb/ansible-bootstrap-http-proxy)
+- [`master`](https://github.com/shalomb/ansible-bootstrap-http-proxy/tree/master)   [![Build Status](https://travis-ci.org/shalomb/ansible-bootstrap-http-proxy.svg?branch=master)](https://travis-ci.org/shalomb/ansible-bootstrap-http-proxy/branches)
+- [`develop`](https://github.com/shalomb/ansible-bootstrap-http-proxy/tree/develop) [![Build Status](https://travis-ci.org/shalomb/ansible-bootstrap-http-proxy.svg?branch=develop)](https://travis-ci.org/shalomb/ansible-bootstrap-http-proxy/branches)
 
 Ansible role to configure the following HTTP/HTTPS/FTP proxy
 environment variables in `/etc/environment` using shell commands and
