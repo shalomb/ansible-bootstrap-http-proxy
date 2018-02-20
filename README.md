@@ -1,9 +1,12 @@
 ansible-bootstrap-http-proxy
 ============================
 
-Configure the following environment variables in `/etc/environment`
-using shell commands using the `raw:` module. This is needed on targets
-where the following vars are needed to complete the bootstrap of
+[![Build Status](https://travis-ci.org/shalomb/ansible-bootstrap-http-proxy.svg?branch=master)](https://travis-ci.org/shalomb/ansible-bootstrap-http-proxy)
+
+Ansible role to configure the following HTTP/HTTPS/FTP proxy
+environment variables in `/etc/environment` using shell commands and
+the `raw:` module. This is needed on targets behind a proxy that
+require this configuration to complete the bootstrap of
 python2.x
 
 - `HTTP_PROXY` and `http_proxy`
@@ -11,7 +14,7 @@ python2.x
 - `FTP_PROXY` and `ftp_proxy`
 - `NO_PROXY` and `no_proxy`
 
-Both upper-case and lower-case variables are set even if only one type
+Both upper-case and lower-case variables are set even if either variant
 is provided.
 
 Requirements
