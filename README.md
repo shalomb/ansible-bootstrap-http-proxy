@@ -1,5 +1,5 @@
 ansible-bootstrap-http-proxy
-===========================
+============================
 
 Configure the following environment variables in `/etc/environment`
 using shell commands using the `raw:` module. This is needed on targets
