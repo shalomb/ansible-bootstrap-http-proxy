@@ -7,20 +7,38 @@ sudo: required
 env:
   - distribution: centos
     version:      7
+  - distribution: debian
+    version:      stretch
+  - distribution: debian
+    version:      jessie
+  - distribution: debian
+    version:      buster
+  - distribution: debian
+    version:      sid
+  - distribution: fedora
+    version:      rawhide
   - distribution: fedora
     version:      26
   - distribution: fedora
     version:      25
   - distribution: fedora
     version:      24
+  - distribution: opensuse
+    version:      tumbleweed
+  - distribution: opensuse
+    version:      42.3
+  - distribution: opensuse
+    version:      42.2
+  - distribution: richxsl/rhel7
+    version:      latest
   - distribution: ubuntu
     version:      xenial
   - distribution: ubuntu
     version:      trusty
-  - distribution: debian
-    version:      stretch
-  - distribution: debian
-    version:      jessie
+  - distribution: ubuntu
+    version:      bionic
+  - distribution: ubuntu
+    version:      rolling
 
 services:
   - docker
