@@ -6,12 +6,18 @@ set -xv
 # setup
 if type -P apt; then
   apt-get -qq -y update
-  apt-get install -y python-minimal
+  apt-get install -y curl python-minimal
 elif type -P zypper; then
-  zypper -n install python
+  zypper -n install curl python
 elif type -P dnf; then
-  dnf install -y python
+  dnf install -y curl python
 elif type -P yum; then
-  yum install -y python
+  yum install -y curl python
 fi
+
+curl https://bootstrap.pypa.io/get-pip.py | python
+
+pip install pip
+
+pip install ansible
 
