@@ -21,7 +21,7 @@ elif type -P yum; then
     curl http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
       -o /tmp/epel.rpm
     rpm -ivh /tmp/epel.rpm
-    yum --disablerepo=* --enablerepo=epel install python-pip
+    yum --disablerepo=* --enablerepo=epel install -y python-pip
   else
     yum install -y curl python
   fi
