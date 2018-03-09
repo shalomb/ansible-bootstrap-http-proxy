@@ -7,11 +7,14 @@ set -xv
 if type -P apt; then
   apt-get -qq -y update
   apt-get install -y --no-install-recommends \
-    ca-certificates curl python-minimal
+    ca-certificates curl python-minimal python-urllib3
+
 elif type -P zypper; then
   zypper -n install curl python python-xml
+
 elif type -P dnf; then
   dnf install -y curl python
+
 elif type -P yum; then
   source /etc/os-release
   if [[ $ID = rhel ]]; then
@@ -22,6 +25,7 @@ elif type -P yum; then
   else
     yum install -y curl python
   fi
+
 fi
 
 if type -P pip; then
