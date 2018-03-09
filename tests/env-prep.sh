@@ -12,12 +12,22 @@ elif type -P zypper; then
 elif type -P dnf; then
   dnf install -y curl python
 elif type -P yum; then
-  yum install -y curl python
+  source /etc/os-release
+  if [[ $ID = rhel ]]; then
+    curl http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+      -o /tmp/epel.rpm
+    rpm -ivh /tmp/epel.rpm
+    yum --disablerepo=* --enablerepo=epel install python-pip
+  else
+    yum install -y curl python
+  fi
 fi
 
-curl https://bootstrap.pypa.io/get-pip.py | python
+if type -P pip; then
+  pip install --upgrade pip
+else
+  curl https://bootstrap.pypa.io/get-pip.py | python
+fi
 
-pip install pip
-
-pip install ansible
+pip install --upgrade ansible
 
