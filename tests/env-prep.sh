@@ -6,7 +6,8 @@ set -xv
 # setup
 if type -P apt; then
   apt-get -qq -y update
-  apt-get install -y --no-install-recommends curl python-minimal
+  apt-get install -y --no-install-recommends \
+    ca-certificates curl python-minimal
 elif type -P zypper; then
   zypper -n install curl python python-xml
 elif type -P dnf; then
