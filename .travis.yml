@@ -12,6 +12,8 @@ env:
   - distribution: debian
     version:      buster
   - distribution: debian
+    version:      buster-slim
+  - distribution: debian
     version:      stretch
   - distribution: debian
     version:      jessie
