@@ -8,11 +8,13 @@ env:
   - distribution: centos
     version:      7
   - distribution: debian
+    version:      sid
+  - distribution: debian
+    version:      buster
+  - distribution: debian
     version:      stretch
   - distribution: debian
     version:      jessie
-  - distribution: debian
-    version:      buster
   - distribution: debian
     version:      sid
 # - distribution: fedora
