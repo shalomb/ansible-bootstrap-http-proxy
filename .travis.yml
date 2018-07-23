@@ -38,13 +38,13 @@ env:
   - distribution: richxsl/rhel7
     version:      latest
   - distribution: ubuntu
-    version:      xenial
-  - distribution: ubuntu
-    version:      trusty
+    version:      rolling
   - distribution: ubuntu
     version:      bionic
   - distribution: ubuntu
-    version:      rolling
+    version:      xenial
+  - distribution: ubuntu
+    version:      trusty
 
 services:
   - docker
