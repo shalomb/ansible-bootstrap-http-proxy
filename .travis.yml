@@ -6,6 +6,8 @@ sudo: required
 
 env:
   - distribution: centos
+    version:      latest
+  - distribution: centos
     version:      7
   - distribution: centos
     version:      6
