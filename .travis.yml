@@ -15,8 +15,8 @@ env:
     version:      buster
   - distribution: debian
     version:      sid
-  - distribution: fedora
-    version:      rawhide
+# - distribution: fedora
+#   version:      rawhide
   - distribution: fedora
     version:      26
   - distribution: fedora
