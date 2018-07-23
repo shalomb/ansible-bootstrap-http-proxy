@@ -6,17 +6,27 @@ sudo: required
 
 env:
   - distribution: centos
+    version:      latest
+  - distribution: centos
     version:      7
+  - distribution: debian
+    version:      sid
+  - distribution: debian
+    version:      buster
+  - distribution: debian
+    version:      buster-slim
   - distribution: debian
     version:      stretch
   - distribution: debian
     version:      jessie
   - distribution: debian
-    version:      buster
-  - distribution: debian
     version:      sid
+# - distribution: fedora
+#   version:      rawhide
   - distribution: fedora
-    version:      rawhide
+    version:      28
+  - distribution: fedora
+    version:      27
   - distribution: fedora
     version:      26
   - distribution: fedora
@@ -32,13 +42,13 @@ env:
   - distribution: richxsl/rhel7
     version:      latest
   - distribution: ubuntu
-    version:      xenial
-  - distribution: ubuntu
-    version:      trusty
+    version:      rolling
   - distribution: ubuntu
     version:      bionic
   - distribution: ubuntu
-    version:      rolling
+    version:      xenial
+  - distribution: ubuntu
+    version:      trusty
 
 services:
   - docker
