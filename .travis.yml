@@ -7,6 +7,8 @@ sudo: required
 env:
   - distribution: centos
     version:      7
+  - distribution: centos
+    version:      6
   - distribution: debian
     version:      sid
   - distribution: debian
