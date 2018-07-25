@@ -66,3 +66,5 @@ script:
   - 'docker exec -it $container_id ./tests/env-prep.sh'
   - 'docker exec -it $container_id sh -c "cd tests && ./test.yml -l localhost -vv"'
 
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
