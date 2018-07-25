@@ -21,17 +21,19 @@ env:
     version:      jessie
   - distribution: debian
     version:      sid
-# - distribution: fedora
-#   version:      rawhide
-  - distribution: fedora
+  - distribution: registry.fedoraproject.org/fedora
+    version:      rawhide
+  - distribution: registry.fedoraproject.org/fedora
+    version:      29
+  - distribution: registry.fedoraproject.org/fedora
     version:      28
-  - distribution: fedora
+  - distribution: registry.fedoraproject.org/fedora
     version:      27
-  - distribution: fedora
+  - distribution: registry.fedoraproject.org/fedora
     version:      26
-  - distribution: fedora
+  - distribution: registry.fedoraproject.org/fedora
     version:      25
-  - distribution: fedora
+  - distribution: registry.fedoraproject.org/fedora
     version:      24
   - distribution: opensuse
     version:      tumbleweed
