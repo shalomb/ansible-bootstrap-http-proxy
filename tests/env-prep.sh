@@ -16,6 +16,7 @@ elif type -P zypper; then
 
 elif type -P dnf; then
   dnf install -y curl python3 python3-pip python3-setuptools
+  dnf install @development-tools  # build essentials
 
 elif type -P yum; then
   source /etc/os-release
