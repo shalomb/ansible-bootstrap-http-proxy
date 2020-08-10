@@ -35,12 +35,6 @@ env:
     version:      25
   - distribution: registry.fedoraproject.org/fedora
     version:      24
-  - distribution: opensuse
-    version:      tumbleweed
-  - distribution: opensuse
-    version:      42.3
-  - distribution: opensuse
-    version:      42.2
   - distribution: richxsl/rhel7
     version:      latest
   - distribution: ubuntu
