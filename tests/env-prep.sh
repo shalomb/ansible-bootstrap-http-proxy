@@ -24,6 +24,7 @@ elif type -P yum; then
     curl http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
       -o /tmp/epel.rpm
     rpm -ivh /tmp/epel.rpm
+    yum makecache
     yum --disablerepo=* --enablerepo=epel install -y \
       python3 python3-pip python3-setuptools
   else
