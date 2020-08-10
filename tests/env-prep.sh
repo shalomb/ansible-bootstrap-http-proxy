@@ -15,8 +15,9 @@ elif type -P zypper; then
   zypper -n install curl python python-xml
 
 elif type -P dnf; then
-  dnf install -y curl python3 python3-pip python3-setuptools
+  dnf install -y curl python3 python3-pip python3-setuptools python3-wheel
   dnf install @development-tools  # build essentials
+  # libffi-devel python-devel - may be needed for pip install cffi ansible
 
 elif type -P yum; then
   source /etc/os-release
