@@ -21,20 +21,18 @@ env:
     version:      jessie
   - distribution: debian
     version:      sid
-  - distribution: registry.fedoraproject.org/fedora
+  - distribution: fedora
     version:      rawhide
-  - distribution: registry.fedoraproject.org/fedora
+  - distribution: fedora
+    version:      33
+  - distribution: fedora
+    version:      32
+  - distribution: fedora
+    version:      31
+  - distribution: fedora
+    version:      30
+  - distribution: fedora
     version:      29
-  - distribution: registry.fedoraproject.org/fedora
-    version:      28
-  - distribution: registry.fedoraproject.org/fedora
-    version:      27
-  - distribution: registry.fedoraproject.org/fedora
-    version:      26
-  - distribution: registry.fedoraproject.org/fedora
-    version:      25
-  - distribution: registry.fedoraproject.org/fedora
-    version:      24
   - distribution: richxsl/rhel7
     version:      latest
   - distribution: ubuntu
