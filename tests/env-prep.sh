@@ -31,16 +31,14 @@ elif type -P yum; then
 
 fi
 
+if ! python3 -c 'import pip'; then
+  curl https://bootstrap.pypa.io/get-pip.py | python3
+fi
+
 # Workaround for when pip3 isn't setup
 pip3() {
   python3 -m pip "$@";
 }
-
-pip3 install --upgrade pip || true
-
-if ! type -P pip3; then
-  curl https://bootstrap.pypa.io/get-pip.py | python3
-fi
 
 pip3 install --upgrade ansible==2.8.0
 
