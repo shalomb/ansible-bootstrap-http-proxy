@@ -9,7 +9,7 @@ if type -P apt; then
   apt-get -qq -y update
   apt-get install -y --no-install-recommends --no-install-suggests \
     ca-certificates curl \
-    python3-minimal python3-setuptools python3-wheel
+    python3-minimal python3-setuptools python3-wheel python3-pip
 
 elif type -P zypper; then
   zypper -n install curl python python-xml
