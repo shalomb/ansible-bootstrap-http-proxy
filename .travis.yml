@@ -8,6 +8,8 @@ env:
   - distribution: centos
     version:      latest
   - distribution: centos
+    version:      8
+  - distribution: centos
     version:      7
   - distribution: debian
     version:      sid
@@ -37,6 +39,8 @@ env:
     version:      latest
   - distribution: ubuntu
     version:      rolling
+  - distribution: ubuntu
+    version:      focal
   - distribution: ubuntu
     version:      bionic
   - distribution: ubuntu
