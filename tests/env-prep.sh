@@ -16,7 +16,7 @@ elif type -P zypper; then
 
 elif type -P dnf; then
   dnf install -y curl python3 python3-pip python3-setuptools python3-wheel
-  dnf install @development-tools  # build essentials
+  dnf install gcc  # build essentials
   # libffi-devel python-devel - may be needed for pip install cffi ansible
 
 elif type -P yum; then
