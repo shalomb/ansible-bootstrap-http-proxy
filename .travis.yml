@@ -4,6 +4,9 @@ language: python
 
 sudo: required
 
+services:
+  - docker
+
 env:
   - distribution: centos
     version:      latest
@@ -11,41 +14,26 @@ env:
     version:      8
   - distribution: centos
     version:      7
+
   - distribution: debian
-    version:      sid
-  - distribution: debian
-    version:      buster
+    version:      sid-slim
   - distribution: debian
     version:      buster-slim
-  - distribution: debian
-    version:      stretch
-  - distribution: debian
-    version:      sid
+
   - distribution: fedora
     version:      rawhide
   - distribution: fedora
     version:      33
-  - distribution: fedora
-    version:      32
-  - distribution: fedora
-    version:      31
-  - distribution: fedora
-    version:      30
-  - distribution: fedora
-    version:      29
-  - distribution: richxsl/rhel7
+
+  - distribution: registry.access.redhat.com/ubi8/ubi
     version:      latest
+  - distribution: registry.access.redhat.com/ubi7/ubi
+    version:      latest
+
   - distribution: ubuntu
     version:      rolling
   - distribution: ubuntu
     version:      focal
-  - distribution: ubuntu
-    version:      bionic
-  - distribution: ubuntu
-    version:      xenial
-
-services:
-  - docker
 
 before_install:
   - 'sudo docker pull ${distribution}:${version}'
