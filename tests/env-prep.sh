@@ -37,6 +37,9 @@ elif type -P yum; then
       rh-python$pyno-python-pip        \
       rh-python$pyno-python-setuptools \
       rh-python$pyno-python-wheel
+
+    # https://www.softwarecollections.org/en/scls/rhscl/rh-python36/
+    scl enable rh-python36 bash  # wtf?
   else
     yum install -y curl python3 python3-pip python3-setuptools
   fi
