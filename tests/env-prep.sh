@@ -43,6 +43,7 @@ pip3() {
   python3 -m pip "$@";
 }
 
+pip3 install --upgrade setuptools
 pip3 install --upgrade ansible==2.8.0
 
 ansible --version
