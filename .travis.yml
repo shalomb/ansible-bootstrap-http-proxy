@@ -8,6 +8,11 @@ services:
   - docker
 
 env:
+  - distribution: registry.access.redhat.com/ubi8/ubi
+    version:      latest
+  - distribution: registry.access.redhat.com/ubi7/ubi
+    version:      latest
+
   - distribution: centos
     version:      latest
   - distribution: centos
@@ -24,11 +29,6 @@ env:
     version:      rawhide
   - distribution: fedora
     version:      33
-
-  - distribution: registry.access.redhat.com/ubi8/ubi
-    version:      latest
-  - distribution: registry.access.redhat.com/ubi7/ubi
-    version:      latest
 
   - distribution: ubuntu
     version:      rolling

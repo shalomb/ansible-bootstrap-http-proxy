@@ -29,11 +29,6 @@ elif type -P yum; then
   if [[ $ID = rhel ]]; then
     pyno=36  # python 3.6
     [[ $VERSION_ID == 8* ]] && pyno=38 # python 3.8 on ubi8
-    curl http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-      -o /tmp/epel.rpm
-    rpm -ivh /tmp/epel.rpm || true
-    sed -i '/baseurl/s/^#//' /etc/yum.repos.d/epel*.repo
-    sed -i '/metalink/d'     /etc/yum.repos.d/epel*.repo
     yum --enablerepo=* makecache
     yum --enablerepo=* install -y   \
       curl gcc libffi-devel         \
