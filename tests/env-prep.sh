@@ -40,7 +40,9 @@ elif type -P yum; then
 
     # https://www.softwarecollections.org/en/scls/rhscl/rh-python36/
     # https://serverfault.com/questions/751155/permanently-enable-a-scl/851154#851154
-    source scl_source enable rh-python36  # wtf? some serious over-engineering?
+    set +eu   # Avoid this crap -> /usr/bin/scl_source: line 16: _recursion: unbound variable
+    source scl_source enable rh-python36  # wtf RH? some serious over-engineering?
+    set -eu   # And back to sanity
   else
     yum install -y curl python3 python3-pip python3-setuptools
   fi
