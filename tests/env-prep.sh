@@ -16,8 +16,11 @@ elif type -P zypper; then
 
 elif type -P dnf; then
   dnf install -y   \
-    python3-pip    \
+    gcc            \
+    libffi-devel   \
     python3        \
+    python3-devel  \
+    python3-pip    \
     python3-setuptools \
     python3-wheel
 
