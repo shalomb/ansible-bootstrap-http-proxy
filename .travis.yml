@@ -10,8 +10,6 @@ services:
 env:
   - distribution: registry.access.redhat.com/ubi8/ubi
     version:      latest
-  - distribution: registry.access.redhat.com/ubi7/ubi
-    version:      latest
 
   - distribution: centos
     version:      latest
