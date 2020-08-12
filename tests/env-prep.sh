@@ -51,7 +51,7 @@ pip() {
 
 python3 --version       || python3-install
 python3 -c 'import pip' || pip3-install
-[[ $ID == fedora ]]     || ansible-prereqs-install
+[[ $ID == fedora ]]     && ansible-prereqs-install
 
 pip install --upgrade ansible
 ansible --version
