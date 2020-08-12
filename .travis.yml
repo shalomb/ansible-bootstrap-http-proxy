@@ -13,25 +13,15 @@ env:
 
   - distribution: centos
     version:      latest
-  - distribution: centos
-    version:      8
-  - distribution: centos
-    version:      7
 
   - distribution: debian
     version:      sid-slim
-  - distribution: debian
-    version:      buster-slim
 
   - distribution: fedora
     version:      rawhide
-  - distribution: fedora
-    version:      33
 
   - distribution: ubuntu
     version:      rolling
-  - distribution: ubuntu
-    version:      focal
 
 before_install:
   - 'sudo docker pull ${distribution}:${version}'
