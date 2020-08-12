@@ -3,9 +3,9 @@
 set -eu
 set -xv
 
-python3-install() {
-  source /etc/os-release
+source /etc/os-release
 
+python3-install() {
   if type -P apt; then
     export DEBIAN_FRONTEND=noninteractive
     apt-get -qq -y update
@@ -28,18 +28,19 @@ python3-install() {
       python3-setuptools \
       python3-wheel
 
-    if [[ $ID == fedora ]]; then
-      $pkg install -y      \
-        gcc                \
-        libffi-devel
-    fi
   fi
 }
 
 pip3-install() {
   # We should never need to do this as supposedly pip is now
-  # part of python3
+  # part of python3 but because .. fedora
   curl -fsSL https://bootstrap.pypa.io/get-pip.py | python3
+}
+
+ansible-prereqs-install() {
+  dnf install -y \
+    gcc          \
+    libffi-devel
 }
 
 # Workaround for when pip3 isn't setup as a command
@@ -50,6 +51,7 @@ pip() {
 
 python3 --version       || python3-install
 python3 -c 'import pip' || pip3-install
+[[ $ID == fedora ]]     || ansible-prereqs-install
 
 pip install --upgrade ansible
 ansible --version
