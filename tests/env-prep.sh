@@ -40,7 +40,8 @@ pip3-install() {
 ansible-prereqs-install() {
   dnf install -y \
     gcc          \
-    libffi-devel
+    libffi-devel \
+    python3-devel
 }
 
 # Workaround for when pip3 isn't setup as a command
