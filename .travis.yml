@@ -4,56 +4,24 @@ language: python
 
 sudo: required
 
-env:
-  - distribution: centos
-    version:      latest
-  - distribution: centos
-    version:      7
-  - distribution: debian
-    version:      sid
-  - distribution: debian
-    version:      buster
-  - distribution: debian
-    version:      buster-slim
-  - distribution: debian
-    version:      stretch
-  - distribution: debian
-    version:      jessie
-  - distribution: debian
-    version:      sid
-  - distribution: registry.fedoraproject.org/fedora
-    version:      rawhide
-  - distribution: registry.fedoraproject.org/fedora
-    version:      29
-  - distribution: registry.fedoraproject.org/fedora
-    version:      28
-  - distribution: registry.fedoraproject.org/fedora
-    version:      27
-  - distribution: registry.fedoraproject.org/fedora
-    version:      26
-  - distribution: registry.fedoraproject.org/fedora
-    version:      25
-  - distribution: registry.fedoraproject.org/fedora
-    version:      24
-  - distribution: opensuse
-    version:      tumbleweed
-  - distribution: opensuse
-    version:      42.3
-  - distribution: opensuse
-    version:      42.2
-  - distribution: richxsl/rhel7
-    version:      latest
-  - distribution: ubuntu
-    version:      rolling
-  - distribution: ubuntu
-    version:      bionic
-  - distribution: ubuntu
-    version:      xenial
-  - distribution: ubuntu
-    version:      trusty
-
 services:
   - docker
+
+env:
+  - distribution: registry.access.redhat.com/ubi8/ubi
+    version:      latest
+
+  - distribution: centos
+    version:      latest
+
+  - distribution: debian
+    version:      sid-slim
+
+  - distribution: fedora
+    version:      rawhide
+
+  - distribution: ubuntu
+    version:      rolling
 
 before_install:
   - 'sudo docker pull ${distribution}:${version}'
@@ -62,7 +30,9 @@ script:
   - container_id=$(mktemp -t XXXXXXXXXXXX)
   - container_id=$( basename $container_id )
   - 'docker run --detach --volume="$PWD":"$PWD":ro -w "$PWD" --name $container_id $distribution:$version sleep 2d'
-  - 'docker exec -it $container_id sh -c "cd tests && pwd && ls -ld ./* ../* ../../* ../../../*"'
+  - 'docker exec -it $container_id sh -c "cd tests && pwd && ls -ld ./* ../* ../../* ../../../*" || true'
   - 'docker exec -it $container_id ./tests/env-prep.sh'
   - 'docker exec -it $container_id sh -c "cd tests && ./test.yml -l localhost -vv"'
 
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
