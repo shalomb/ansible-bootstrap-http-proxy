@@ -44,12 +44,19 @@ ansible-prereqs-install() {
     python3-devel
 }
 
+fedora-prereqs-install() {
+  rpm --import "https://src.fedoraproject.org/rpms/fedora-repos/raw/master/f/RPM-GPG-KEY-fedora-${VERSION_ID}-primary"
+  NEXT_VERSION_ID=$(( VERSION_ID + 1 ))
+  rpm --import "https://src.fedoraproject.org/rpms/fedora-repos/raw/master/f/RPM-GPG-KEY-fedora-${NEXT_VERSION_ID}-primary"
+}
+
 # Workaround for when pip3 isn't setup as a command
 # This always ensures pip from python3 is used.
 pip() {
   python3 -m pip "$@"
 }
 
+[[ $ID == 'fedora' ]]   && fedora-prereqs-install
 python3 --version       || python3-install
 python3 -c 'import pip' || pip3-install
 [[ $ID == fedora ]]     && ansible-prereqs-install
