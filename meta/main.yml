@@ -1,23 +1,19 @@
+---
+
 galaxy_info:
   author: Shalom Bhooshi
-  description: Role to setup {HTTP,HTTPS,FTP}_PROXY vars
+  description: >
+    Role to configure Web/FTP proxy
+    {HTTP,HTTPS,FTP}_PROXY environmental variables
   company: StarFish Solo
-  issue_tracker_url: https://github.com/shalomb/ansible-bootstrap-http-proxy/issues
+  issue_tracker_url: >
+    https://github.com/shalomb/ansible-bootstrap-http-proxy/issues
 
-  # Some suggested licenses:
-  # - BSD (default)
-  # - MIT
-  # - GPLv2
-  # - GPLv3
-  # - Apache
-  # - CC-BY
-  license: license (GPLv2, CC-BY, etc)
+  license: Copyleft
 
   min_ansible_version: 2.4
 
   github_branch: master
-
-  # platforms is a list of platforms, and each platform has a name and a list of versions.
 
   platforms:
 
@@ -35,6 +31,10 @@ galaxy_info:
         - 33
 
     - name: RHEL
+      versions:
+        - all
+
+    - name: Linux
       versions:
         - all
 
