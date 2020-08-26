@@ -45,9 +45,21 @@ ansible-prereqs-install() {
 }
 
 fedora-prereqs-install() {
-  rpm --import "https://src.fedoraproject.org/rpms/fedora-repos/raw/master/f/RPM-GPG-KEY-fedora-${VERSION_ID}-primary"
-  NEXT_VERSION_ID=$(( VERSION_ID + 1 ))
-  rpm --import "https://src.fedoraproject.org/rpms/fedora-repos/raw/master/f/RPM-GPG-KEY-fedora-${NEXT_VERSION_ID}-primary"
+  local NEXT_VERSION_ID=$(( VERSION_ID + 1 ))
+  local keys=(
+    # This should always succeed.
+    # even on rawhide?
+    "https://src.fedoraproject.org/rpms/fedora-repos/raw/master/f/RPM-GPG-KEY-fedora-${VERSION_ID}-primary"
+
+    # This should fail on rawhide.
+    "https://src.fedoraproject.org/rpms/fedora-repos/raw/master/f/RPM-GPG-KEY-fedora-${NEXT_VERSION_ID}-primary"
+  )
+
+  for url in "${keys[@]}"; do
+    if curl -fsSLI "$url"; then
+      rpm -vvvv --import "$url"
+    fi
+  done
 }
 
 # Workaround for when pip3 isn't setup as a command
