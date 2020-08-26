@@ -7,6 +7,12 @@ sudo: required
 services:
   - docker
 
+cache:
+  pip: true
+  directories:
+    - $HOME/.cache/pip
+    - venv/
+
 env:
   - distribution: registry.access.redhat.com/ubi8/ubi
     version:      latest
