@@ -1,3 +1,9 @@
+v1.0.9 2020-08-26T22:17:31
+--------------------------
+
+* Fix break in testing fedora:rawhide where package signing keys for
+  the nonexistent next version could not be imported
+
 v1.0.8 2020-08-19T16:07:12
 --------------------------
 
