@@ -32,9 +32,18 @@ python3-install() {
 }
 
 pip3-install() {
-  # We should never need to do this as supposedly pip is now
-  # part of python3 but because .. fedora
-  curl -fsSL https://bootstrap.pypa.io/get-pip.py | python3
+  pyver=$(python3 -c 'import sys;print(sys.version[0:3])')
+
+  if [[ $pyver == '3.5' ]]; then
+    # NOTE: Python 3.5 is to be deprecated on September 13th, 2020.
+    curl -fsSL https://bootstrap.pypa.io/pip/3.5/get-pip.py | python3
+  else
+    curl -fsSL https://bootstrap.pypa.io/get-pip.py | python3
+  fi
+
+  # This seemingly is the only way to "register" the pip3 install on
+  # python <= 3.5 despite the above suceeding .. heh
+  python3 -m pip install -U pip
 }
 
 ansible-prereqs-install() {
@@ -70,7 +79,7 @@ pip() {
 
 [[ $ID == 'fedora' ]]   && fedora-prereqs-install
 python3 --version       || python3-install
-python3 -c 'import pip' || pip3-install
+pip3-install
 [[ $ID == fedora ]]     && ansible-prereqs-install
 
 pip install --upgrade ansible
